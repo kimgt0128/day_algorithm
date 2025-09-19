@@ -1,10 +1,10 @@
 # [level 3] 등산코스 정하기 - 118669 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/118669?gad_source=1&gad_campaignid=22356298761&gbraid=0AAAAAC_c4nC8alBZR_R9mdcDbBBJEGB_V&gclid=Cj0KCQjw267GBhCSARIsAOjVJ4ENvGYVp6INLr3lX6p8hTFTsaTzfGq9HRFhEursqOYiincjkcWAgvwaAllDEALw_wcB) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/118669?gad_source=1&gad_campaignid=22366107751&gbraid=0AAAAAC_c4nB2o9bJ1HvYa2WMp_NRtIyEc&gclid=Cj0KCQjw267GBhCSARIsAOjVJ4HGfkhBQPz6LkJ8zziBR1tae8M5D18oPNQ1E8obxIUzhSMnene-Gw0aArdOEALw_wcB) 
 
 ### 성능 요약
 
-메모리: 54.2 MB, 시간: 84.97 ms
+메모리: 54.1 MB, 시간: 88.55 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2025년 09월 19일 14:19:05
+2025년 09월 19일 14:22:32
 
 ### 문제 설명
 

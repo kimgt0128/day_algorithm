@@ -1,72 +1,73 @@
-#include <istream>
-#include<iostream>
-#include<string>
-#include<vector>
-#include<map>
-#include<set>
-#include<stack>
-#include<algorithm>
-
+#include<bits/stdc++.h>
 using namespace std;
 
-vector<bool> visited;
-//bool visited[50004];
-//pair<int, int> dp[50004];
-vector<pair<int, int>> dp;
-vector<vector<pair<int, int>>> grafh;
+int dis[50004];
+vector<vector<pair<int, int>>> graph;
 set<int> smts;
 set<int> gats;
+priority_queue < pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> intensity;
+vector<int> ans(2, 0x7fffffff);
 
 
-// {cost, node}
-pair<int, int> backtracking(pair<int, int> cur) {
-    int cur_cost = cur.first;
-    int cur_node = cur.second;
-
-    // 봉우리이면 바로 봉우리 반환
-    if (smts.find(cur_node) != smts.end()) return { cur_cost, cur_node };
-
-    visited[cur_node] = true;
-
-    int cmp = 0x7fffffff;
-    pair<int, int> res;
-    for (pair<int, int> nxt : grafh[cur_node]) {
-
-        int nxt_cost = nxt.first;
-        int nxt_node = nxt.second;
-
-        // 다음 노드가 시작 노드이면
-        if (gats.find(nxt_node) != gats.end()) continue;
-
-        // 다음 노드가 이전 노드라면 넘기기
-        if (visited[nxt_node] && dp[nxt_node].second == 0) continue;
-
-
-        if (visited[nxt_node]) { // 다음 노드가 이미 방문한 기록이 있다면
-            res = { dp[nxt_node].first, dp[nxt_node].second };
-            res.first = max(nxt_cost, res.first);
-        
-        }
-        else {
-            auto it = backtracking(nxt);
-            res = { it.first, it.second };
-            res.first = max(nxt_cost, res.first);
-        }
-        //res.first = max(res.first, nxt_cost);
-        cmp = min(res.first, cmp);
-    }
+void dijkstra() {
     
-    return dp[cur_node] = { cmp, res.second };
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+
+    // 출발 게이트 모두 우선순위 큐에 추가
+    for (auto it : gats) {
+        dis[it] = 0;
+        pq.push({ 0, it });
+    }
+
+
+    while (!pq.empty()) {
+
+        pair<int, int> cur = pq.top();
+        int cur_node = cur.second;
+        int cur_cost = cur.first;
+        pq.pop();
+        
+        if (cur_cost != dis[cur_node]) continue;
+
+        for (pair<int, int> nxt : graph[cur_node]) {
+            int nxt_node = nxt.second;
+            int nxt_cost = nxt.first;
+            if (gats.find(nxt_node) != gats.end()) continue;
+
+            nxt_cost = max(nxt_cost, dis[cur_node]);
+            if (dis[nxt_node] != -1 && nxt_cost >= dis[nxt_node]) continue;
+
+            // 다음 노드가 봉우리이면 우선순위 큐에 넣지 않고  정답 갱신하기
+            if (smts.find(nxt_node) != smts.end()) {
+                if (nxt_cost < ans[1]) {
+                    ans[0] = nxt_node;
+                    ans[1] = nxt_cost;
+                }
+                else if (nxt_cost == ans[1]) {
+                    ans[0] = min(ans[0], nxt_node);
+                }
+                dis[nxt_node] = nxt_cost;
+
+            }
+            // 일반 노드이면 우선순위 큐에 넣고 dis업데이트
+            else {
+                dis[nxt_node] = nxt_cost;
+                pq.push({ dis[nxt_node],  nxt_node });
+            }
+
+        }
+    }
+
+
 }
+
 
 vector<int> solution(int n, vector<vector<int>> paths, vector<int> gates, vector<int> summits) {
 
-    visited = vector<bool>(n + 1, false);
-    dp = vector<pair<int, int>>(n + 1, { 0, 0 });
-    grafh = vector<vector<pair<int, int>>>(n + 1);
-
-    vector<int> ans(2, 0);
     set<pair<int, int>> result;
+
+  
+    graph.assign(n+1, {});
 
     for (auto e : gates) gats.insert(e);
     for (auto e : summits) smts.insert(e);
@@ -78,13 +79,23 @@ vector<int> solution(int n, vector<vector<int>> paths, vector<int> gates, vector
         int w = e[2];
 
         // 인접 리스트 방식으로 양방향 노드, 가중치 저장하기
-        grafh[u].push_back({ w, v });
-        grafh[v].push_back({ w, u });
+        graph[u].push_back({ w, v });
+        graph[v].push_back({ w, u });
     }
-
-    for (int g : gates) result.insert(backtracking({ 0, g }));
-
-    ans = { result.begin()->second, result.begin()->first };
     
+    memset(dis, -1, sizeof(dis));
+    dijkstra();
+
     return ans;
 }
+
+
+int main(void) {
+    vector<vector<int>> paths = { {1, 2, 3}, { 2, 3, 5 }, { 2, 4, 2 }, { 2, 5, 4 }, { 3, 4, 4 }, { 4, 5, 3 }, { 4, 6, 1 }, { 5, 6, 1 } };
+    //vector<vector<int>> paths = { {1, 2, 5},{1, 4, 1},{2, 3, 1},{2, 6, 7},{4, 5, 1},{5, 6, 1},{6, 7, 1} };
+    vector<int> res = solution(6, paths, { 1,3 }, { 5 });
+
+    cout << res[0] << ", " << res[1];
+
+}
+
