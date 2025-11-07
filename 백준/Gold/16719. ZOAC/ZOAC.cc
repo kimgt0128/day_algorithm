@@ -22,8 +22,6 @@ void back_tracking(int start, int end) {
 
 	}
 
-	if (idx == 10000) return;
-
 	visit[idx] = true;
 
 
