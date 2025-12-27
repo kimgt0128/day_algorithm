@@ -7,18 +7,6 @@ using namespace std;
 int n, m;
 vector<int> vec;
 
-bool binary_search(int target) {
-	int st = 0, en = n - 1;
-	while (st <= en) {
-		int mid = (st + en) / 2;
-
-		if (vec[mid] == target) return true;
-		else if (vec[mid] < target) st = mid + 1;
-		else en = mid - 1;
-	}
-
-	return false;
-}
 
 int main(void) {
 
@@ -38,7 +26,8 @@ int main(void) {
 
 		int target;
 		cin >> target;
-		bool res = binary_search(target);
+		bool res = binary_search(vec.begin(), vec.end(), target);
+		
 		if (res) cout << 1 << "\n";
 		else cout << 0 << "\n";
 
