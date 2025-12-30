@@ -10,37 +10,7 @@ int n, m;
 vector<vector<int>> board;
 vector<pair<int, int>> house;
 vector<pair<int, int>> chicken;
-
-int ans = 0x7fffffff;
 vector<int> comb;
-
-void get_combination(int depth, int idx) {
-
-	if (depth == m) {
-
-
-		// 선택된 조합에 대해 치킨거리 구하기
-		int sum = 0;
-		for (auto h : house) {
-			int mini = 0x7ffffff;
-			for (auto c : comb) {
-				mini = min(mini, abs(h.first - chicken[c].first) + abs(h.second - chicken[c].second));
-			}
-			sum += mini;
-		}
-
-		ans = min(ans, sum);
-
-		return;
-	}
-
-	for (int i = idx; i < chicken.size(); i++) {
-		comb.push_back(i);
-		get_combination(depth + 1, i + 1);
-		comb.pop_back();
-	}
-
-}
 
 
 int main(void) {
@@ -59,7 +29,35 @@ int main(void) {
 		}
 	}
 
-	get_combination(0, 0);
+
+	comb.assign(chicken.size(), 0);
+	for (int i = 0; i < m; i++) comb[i] = 1;
+	sort(comb.begin(), comb.end());
+
+	int ans = 0x7ffffff;
+
+	do {
+		int sum = 0;
+		for (auto h : house) {
+			int mini = 0x7fffffff;
+			for (int i = 0; i < chicken.size(); i++) {
+				if (comb[i] == 0) continue;
+				pair<int, int> picked = chicken[i];
+				mini = min(mini, abs(h.first - picked.first) + abs(h.second - picked.second));
+			}
+			sum += mini;
+
+		}
+
+		ans = min(ans, sum);
+
+
+		
+
+	} while (next_permutation(comb.begin(), comb.end()));
+	
+
+	
 
 	cout << ans;
 
