@@ -1,37 +1,45 @@
 import sys
 from itertools import permutations
 
-n = int(sys.stdin.readline())
-words = [sys.stdin.readline().strip() for _ in range(n)]
+def solve():
+    # 1. 입력 받기
+    input = sys.stdin.read().split()
+    if not input: return
+    n = int(input[0])
+    words = input[1:]
 
-# 1. 등장하는 알파벳들만 추출
-unique_chars = list(set("".join(words)))
-k = len(unique_chars)
+    # 2. 등장하는 알파벳 찾기
+    unique_chars = sorted(list(set("".join(words))))
+    k = len(unique_chars)
 
-# 2. [핵심] 각 알파벳의 전체 가중치를 미리 계산
-# 예: {'A': 101, 'B': 110, 'C': 11}
-char_weights = []
-for char in unique_chars:
-    weight = 0
-    for w in words:
-        # 단어 안에서 해당 문자가 나타나는 모든 위치의 가중치를 더함
-        for i, c in enumerate(w[::-1]):
-            if c == char:
-                weight += (10 ** i)
-    char_weights.append(weight)
+    # 3. [핵심] 각 알파벳의 가중치 미리 계산 (루프 밖에서 딱 한 번!)
+    # 예: "ABC" -> A는 100, B는 10, C는 1의 가중치를 가짐
+    char_weights = []
+    for char in unique_chars:
+        weight = 0
+        for word in words:
+            length = len(word)
+            for i in range(length):
+                if word[i] == char:
+                    # 자릿수에 따른 가중치 (10의 거듭제곱)
+                    weight += 10 ** (length - i - 1)
+        char_weights.append(weight)
 
-# 3. 브루트포스 탐색 시작
-nums = list(range(10))
-max_ans = 0
+    # 4. 브루트포스 탐색 (10개 중 k개를 순서대로 뽑음)
+    nums = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    max_ans = 0
 
-# 이제 반복문 안에는 문자열 연산이 전혀 없습니다.
-for p in permutations(nums, k):
-    current_sum = 0
-    for i in range(k):
-        # (알파벳의 가중치) * (배정된 숫자) 를 바로 더함
-        current_sum += char_weights[i] * p[i]
-    
-    if current_sum > max_ans:
-        max_ans = current_sum
+    # p는 unique_chars[i]에 배정된 숫자 리스트
+    for p in permutations(nums, k):
+        current_sum = 0
+        # 문자열 변환 없이 숫자 곱셈과 덧셈만 수행 (매우 빠름)
+        for i in range(k):
+            current_sum += char_weights[i] * p[i]
+        
+        if current_sum > max_ans:
+            max_ans = current_sum
 
-print(max_ans)
+    print(max_ans)
+
+if __name__ == '__main__':
+    solve()
