@@ -29,7 +29,7 @@ int prime(int start) {
 		visit[cur_node] = true;
 		mst += cur_cost;
 		
-		for (int nxt = 0; nxt < g[cur_node].size(); nxt++) {
+		for (int nxt = 0; nxt <= n; nxt++) {
 			int nxt_cost = g[cur_node][nxt];
 
 			if (visit[nxt]) continue;
