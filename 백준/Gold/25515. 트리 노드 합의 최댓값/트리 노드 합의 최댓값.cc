@@ -5,16 +5,13 @@ using namespace std;
 
 int n;
 vector<vector<int>> g;
-vector<bool> visit;
 vector<long> nodes;
 vector<long> dp;
 
 long dfs(int cur) {
-	visit[cur] = true;
 
 	dp[cur] = 0;
 	for (auto nxt : g[cur]) {
-		if (visit[nxt]) continue;
 		dp[cur] += max((long)0, dfs(nxt));
 	}
 
@@ -28,7 +25,6 @@ int main(void) {
 	cin >> n;
 
 	g.resize(n);
-	visit.assign(n, false);
 	nodes.resize(n);
 	dp.resize(n);
 	
