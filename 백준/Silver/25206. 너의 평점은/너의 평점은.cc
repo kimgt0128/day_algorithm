@@ -24,7 +24,7 @@ int main(void) {
 	FAST_IO;
 
 	double total = 0;
-	double total_credit = 0;
+    int total_credit = 0;
 
 	int t = 20;
 	while (t--) {
