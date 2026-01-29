@@ -1,59 +1,65 @@
 #include<bits/stdc++.h>
-#define FAST_IO cin.tie(0), cout.tie(0), ios_base::sync_with_stdio(0)
+
 using namespace std;
 
-vector<int> par;
+vector<vector<pair<int, int>>> graph;
+vector<bool> check;
 
-int Find(int x) {
-    return par[x] == x ? x : par[x] = Find(par[x]);
-}
-
-void Union(int a, int b){
-    a = Find(a);
-    b = Find(b);
+int prime(int start) {
     
-    if(a < b) par[b] = a;
-    else par[a] = b;
+    int sum = 0;
+    priority_queue<
+        pair<int, int>,
+        vector<pair<int, int>>,
+        greater<pair<int, int>>
+            > pq;
     
-}
+    pq.push({0, start});
+    
+    while(!pq.empty()) {
+        
+        auto cur = pq.top();
+        pq.pop();
+        
+        int cur_cost = cur.first;
+        int cur_node = cur.second;
+        
+        if(check[cur_node]) continue;
+        sum += cur_cost;
+        check[cur_node] = true;
+        
+        for(auto nxt : graph[cur_node]) {
+            int nxt_node = nxt.second;
+            int nxt_cost = nxt.first;
+            
+            if(!check[nxt_node]) {
+                pq.push({nxt_cost, nxt_node});
+            }
+        }
+        
+    }
+    return sum;
 
+}
 
 int solution(int n, vector<vector<int>> costs) {
     int answer = 0;
     
-    par.resize(n+1, 0);
-    vector<tuple<int, int, int>> edges;
-    for(int i=0; i<n+1; i++) par[i] = i;
+    graph.resize(n+1);
+    check.resize(n+1, false);
     
-    for(int i=0; i<costs.size(); i++) {
+    for(auto cost : costs) {
         int u, v, c;
+        u = cost[0];
+        v = cost[1];
+        c = cost[2];
         
-        u = costs[i][0];
-        v = costs[i][1];
-        c = costs[i][2];
-        
-        edges.push_back({c, u, v});
+        graph[u].push_back({c, v});
+        graph[v].push_back({c, u});
     }
-    // 간선 기준 정렬
-    sort(edges.begin(), edges.end());
     
-    int cnt = 0;
-    for(auto edge : edges) {
-        
-        int c, u, v;
-        c = get<0>(edge);
-        u = get<1>(edge);
-        v = get<2>(edge);
-        
-        // 둘이 같은 집합이라면 넘기기
-        if(Find(u) == Find(v)) continue;
-        Union(u, v);
-        cnt++;
-        answer += c;
-        
-        
-        if(cnt == n-1) break;
-    }    
+    answer = prime(0);
+    
     
     return answer;
 }

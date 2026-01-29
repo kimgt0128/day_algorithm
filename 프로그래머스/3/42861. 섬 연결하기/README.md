@@ -4,7 +4,7 @@
 
 ### 성능 요약
 
-메모리: 4.16 MB, 시간: 0.04 ms
+메모리: 4.18 MB, 시간: 0.03 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2026년 01월 29일 14:37:13
+2026년 01월 29일 15:11:45
 
 ### 문제 설명
 
@@ -54,7 +54,7 @@
 
 <p>costs를 그림으로 표현하면 다음과 같으며, 이때 초록색 경로로 연결하는 것이 가장 적은 비용으로 모두를 통행할 수 있도록 만드는 방법입니다.</p>
 
-<p><img src="https://grepp-programmers.s3.amazonaws.com/files/production/13e2952057/f2746a8c-527c-4451-9a73-42129911fe17.png" alt="image.png" style="transition: none;" class=""></p>
+<p><img src="https://grepp-programmers.s3.amazonaws.com/files/production/13e2952057/f2746a8c-527c-4451-9a73-42129911fe17.png" alt="image.png" style="transition: none;"></p>
 
 
 > 출처: 프로그래머스 코딩 테스트 연습, https://school.programmers.co.kr/learn/challenges
