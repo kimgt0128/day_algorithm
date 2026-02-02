@@ -1,0 +1,16 @@
+SELECT ITEM_ID, ITEM_NAME, RARITY
+
+FROM ITEM_INFO
+
+WHERE ITEM_ID IN
+    (
+        SELECT T.ITEM_ID
+        
+        FROM ITEM_TREE T
+        
+        JOIN ITEM_INFO P ON T.PARENT_ITEM_ID = P.ITEM_ID
+        
+        WHERE RARITY = 'RARE'
+    )
+
+ORDER BY ITEM_ID DESC;
