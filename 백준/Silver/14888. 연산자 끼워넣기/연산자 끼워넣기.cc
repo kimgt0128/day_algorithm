@@ -1,91 +1,65 @@
 #include<iostream>
 #include<vector>
-#define FAST_IO cin.tie(0), cout.tie(0), ios_base::sync_with_stdio(0)
 
 using namespace std;
 
 int n;
 vector<int> nums;
-int cnt[4];
-int mini = 0x7fffffff; // 01111111111111111111
-int maxi = 0x80000000;
+vector<int> cnt;
+int maxi, mini;
 
-vector<int> perm; // 중복순열 저장!
+void get_permutation(int depth, int result) {
 
-void back_tracking(int depth) {
-	if (depth == n-1) {
-
-		// 계산 후 최솟값 비교
-		int tmp = nums[0];
-		int idx = 0;
-		for (int i = 1; i < n; i++) {
-
-			if (perm[idx] == 0) {
-				tmp += nums[i];
-			}
-			else if (perm[idx] == 1) {
-				tmp -= nums[i];
-			}
-			else if (perm[idx] == 2) {
-				tmp *= nums[i];
-			}
-			else {
-				if (nums[idx] > 0) {
-					tmp /= nums[i];
-				}
-				else {
-					tmp /= -nums[i];
-					tmp *= -1;
-				}
-			}
-			idx++;
-
-
-		}
-
-		maxi = max(maxi, tmp);
-		mini = min(mini, tmp);
-		return;
+	if (depth == n - 1) {
+		maxi = max(maxi, result);
+		mini = min(mini, result);
 	}
 
 	for (int i = 0; i < 4; i++) {
-		if (cnt[i] == 0) continue;
-		// cnt가 양수일 때에만 적용
+		if (cnt[i] > 0) {
+			cnt[i]--;
+			if (i == 0) {
+				get_permutation(depth + 1, result + nums[depth + 1]);
+			}
+			else if (i == 1) {
+				get_permutation(depth + 1, result - nums[depth + 1]);
 
-		cnt[i]--;
-		perm.push_back(i);
-		back_tracking(depth + 1);
-		cnt[i]++;
-		perm.pop_back();
+			}
+			else if (i == 2) {
+				get_permutation(depth + 1, result * nums[depth + 1]);
 
+			}
+			else {
+				get_permutation(depth + 1, result / nums[depth + 1]);
+
+			}
+			cnt[i]++;
+		}
 	}
+
+
 
 }
 
 int main(void) {
 
-	FAST_IO;
-
 	cin >> n;
-
 	nums.resize(n);
+	cnt.resize(4);
 
-	for (int i = 0; i < n; i++) {
-		cin >> nums[i];
-	}
+	for (int i = 0; i < n; i++) cin >> nums[i];
+	for (int i = 0; i < 4; i++) cin >> cnt[i];
 
-	for (int i = 0; i < 4; i++) {
-		cin >> cnt[i];
-	}
+	maxi = 0x80000000;
+	mini = 0x7fffffff;
 
-	// back_tracking
-	back_tracking(0);
-
+	get_permutation(0, nums[0]);
 
 	cout << maxi << "\n" << mini;
-
-
-
-
 	return 0;
+
+
+
+	
 }
+
