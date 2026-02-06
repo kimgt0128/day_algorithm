@@ -1,0 +1,30 @@
+WITH RECURSIVE GEN_TABLE AS 
+    (
+        SELECT ID, 1 AS GEN, PARENT_ID
+        FROM ECOLI_DATA
+        WHERE PARENT_ID IS NULL
+        
+        UNION ALL
+        
+        SELECT E.ID, G.GEN + 1, E.PARENT_ID
+        
+        FROM GEN_TABLE G
+        
+        JOIN ECOLI_DATA E ON E.PARENT_ID = G.ID
+    )
+SELECT COUNT(*) AS COUNT, GEN AS GENERATION
+
+FROM GEN_TABLE
+
+WHERE ID NOT IN 
+    (
+        SELECT PARENT_ID
+        
+        FROM GEN_TABLE
+        
+        WHERE PARENT_ID IS NOT NULL
+    )
+    
+GROUP BY GENERATION
+
+ORDER BY GENERATION ASC;
