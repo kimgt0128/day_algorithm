@@ -1,6 +1,6 @@
 # [level 3] 표 편집 - 81303 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/81303?gad_source=1&gad_campaignid=22681436564&gbraid=0AAAAAC_c4nABnf5IVMFGawbfK5f8pxQcZ&gclid=CjwKCAiA-__MBhAKEiwASBmsBIFPtFBHq-CBzRj0xZEo93ZL4vs2FXUmYQ8YQ-7xoiPoq7J53lbcsxoC-awQAvD_BwE) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/81303) 
 
 ### 성능 요약
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2026년 02월 27일 16:47:36
+2026년 02월 27일 16:48:18
 
 ### 문제 설명
 
@@ -24,7 +24,7 @@
 
 <p>업무용 소프트웨어를 개발하는 니니즈웍스의 인턴인 앙몬드는 명령어 기반으로 표의 행을 선택, 삭제, 복구하는 프로그램을 작성하는 과제를 맡았습니다. 세부 요구 사항은 다음과 같습니다</p>
 
-<p><img src="https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/d8e89054-53ba-4222-a485-dc56893f45e4/table_1.png" title="" alt="table_1.png" class=""></p>
+<p><img src="https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/d8e89054-53ba-4222-a485-dc56893f45e4/table_1.png" title="" alt="table_1.png"></p>
 
 <p>위 그림에서 파란색으로 칠해진 칸은 현재 <strong>선택된 행</strong>을 나타냅니다. 단, 한 번에 한 행만 선택할 수 있으며, 표의 범위(0행 ~ 마지막 행)를 벗어날 수 없습니다. 이때, 다음과 같은 명령어를 이용하여 표를 편집합니다.</p>
 
@@ -37,30 +37,30 @@
 
 <p>예를 들어 위 표에서 <code>"D 2"</code>를 수행할 경우 아래 그림의 왼쪽처럼 4행이 선택되며, <code>"C"</code>를 수행하면 선택된 행을 삭제하고, 바로 아래 행이었던 "네오"가 적힌 행을 선택합니다(4행이 삭제되면서 아래 있던 행들이 하나씩 밀려 올라오고, 수정된 표에서 다시 4행을 선택하는 것과 동일합니다).</p>
 
-<p><img src="https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/453bbb71-df69-4be2-a223-67361878202c/table_2.png" title="" alt="table_2.png" class=""></p>
+<p><img src="https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/453bbb71-df69-4be2-a223-67361878202c/table_2.png" title="" alt="table_2.png"></p>
 
 <p>다음으로 <code>"U 3"</code>을 수행한 다음 <code>"C"</code>를 수행한 후의 표 상태는 아래 그림과 같습니다.</p>
 
-<p><img src="https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/61261fa2-701d-4db5-9aa2-a56dd85a3dbf/table_3.png" title="" alt="table_3.png" class=""></p>
+<p><img src="https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/61261fa2-701d-4db5-9aa2-a56dd85a3dbf/table_3.png" title="" alt="table_3.png"></p>
 
 <p>다음으로 <code>"D 4"</code>를 수행한 다음 <code>"C"</code>를 수행한 후의 표 상태는 아래 그림과 같습니다. 5행이 표의 마지막 행 이므로, 이 경우 바로 윗 행을 선택하는 점에 주의합니다.</p>
 
-<p><img src="https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/b1a63278-be97-4e3a-a653-5a6aa0f477ba/table_4.png" title="" alt="table_4.png" class=""></p>
+<p><img src="https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/b1a63278-be97-4e3a-a653-5a6aa0f477ba/table_4.png" title="" alt="table_4.png"></p>
 
 <p>다음으로 <code>"U 2"</code>를 수행하면 현재 선택된 행은 2행이 됩니다.</p>
 
-<p><img src="https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/b1189eff-e4ee-4119-bb55-a1f06e388c29/table_5.png" title="" alt="table_5.png" class=""></p>
+<p><img src="https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/b1189eff-e4ee-4119-bb55-a1f06e388c29/table_5.png" title="" alt="table_5.png"></p>
 
 <p>위 상태에서 <code>"Z"</code>를 수행할 경우 가장 최근에 제거된 <code>"라이언"</code>이 적힌 행이 원래대로 복구됩니다.</p>
 
-<p><img src="https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/0a386d19-0391-46a7-8086-9f36db31940d/table_6.png" title="" alt="table_6.png" class=""></p>
+<p><img src="https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/0a386d19-0391-46a7-8086-9f36db31940d/table_6.png" title="" alt="table_6.png"></p>
 
 <p>다시한번 <code>"Z"</code>를 수행하면 그 다음으로 최근에 제거된 <code>"콘"</code>이 적힌 행이 원래대로 복구됩니다. 이때, 현재 선택된 행은 바뀌지 않는 점에 주의하세요.<br>
-<img src="https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/8900360f-bf0b-449b-a508-98918a14ef1d/table_7.png" title="" alt="table_7.png" class=""></p>
+<img src="https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/8900360f-bf0b-449b-a508-98918a14ef1d/table_7.png" title="" alt="table_7.png"></p>
 
 <p>이때, 최종 표의 상태와 처음 주어진 표의 상태를 비교하여 삭제되지 않은 행은 <code>"O"</code>, 삭제된 행은 <code>"X"</code>로 표시하면 다음과 같습니다.</p>
 
-<p><img src="https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/87a31aeb-50fb-4c0d-9f6b-8427632b582e/table_8.png" title="" alt="table_8.png" class=""></p>
+<p><img src="https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/87a31aeb-50fb-4c0d-9f6b-8427632b582e/table_8.png" title="" alt="table_8.png"></p>
 
 <p>처음 표의 행 개수를 나타내는 정수 n, 처음에 선택된 행의 위치를 나타내는 정수 k, 수행한 명령어들이 담긴 문자열 배열 cmd가 매개변수로 주어질 때, 모든 명령어를 수행한 후 표의 상태와 처음 주어진 표의 상태를 비교하여 삭제되지 않은 행은 O, 삭제된 행은 X로 표시하여 문자열 형태로 return 하도록 solution 함수를 완성해주세요.</p>
 
@@ -136,15 +136,15 @@
 
 <p>다음은 9번째 명령어까지 수행한 후의 표 상태이며, 이는 입출력 예 #1과 같습니다.</p>
 
-<p><img src="https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/8900360f-bf0b-449b-a508-98918a14ef1d/table_7.png" title="" alt="table_7.png" class=""></p>
+<p><img src="https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/8900360f-bf0b-449b-a508-98918a14ef1d/table_7.png" title="" alt="table_7.png"></p>
 
 <p>10번째 명령어 <code>"U 1"</code>을 수행하면 <code>"어피치"</code>가 적힌 2행이 선택되며, 마지막 명령어 <code>"C"</code>를 수행하면 선택된 행을 삭제하고, 바로 아래 행이었던 <code>"제이지"</code>가 적힌 행을 선택합니다.</p>
 
-<p><img src="https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/c9798574-4aa9-4029-901f-21f83fe43164/table_9.png" title="" alt="table_9.png" class=""></p>
+<p><img src="https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/c9798574-4aa9-4029-901f-21f83fe43164/table_9.png" title="" alt="table_9.png"></p>
 
 <p>따라서 처음 주어진 표의 상태와 최종 표의 상태를 비교하면 다음과 같습니다.</p>
 
-<p><img src="https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/e7ba17b2-9461-4e92-8356-81cc90adb2ec/table_10.png" title="" alt="table_10.png" class=""></p>
+<p><img src="https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/e7ba17b2-9461-4e92-8356-81cc90adb2ec/table_10.png" title="" alt="table_10.png"></p>
 
 <hr>
 
