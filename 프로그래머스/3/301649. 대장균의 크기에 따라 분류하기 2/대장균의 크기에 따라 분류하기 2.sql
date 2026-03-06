@@ -1,23 +1,23 @@
--- 코드를 작성해주세요
-WITH RANK_DATA AS (
+WITH TARGET AS (
     SELECT 
-        ID,
-        SIZE_OF_COLONY,
-        NTILE(4) OVER (ORDER BY SIZE_OF_COLONY DESC) AS QUARTILE
-    
-    FROM ECOLI_DATA
+        *,
+        NTILE(4) OVER(ORDER BY SIZE_OF_COLONY DESC) AS CLASS
+    FROM
+        ECOLI_DATA
 )
 
 SELECT
     ID,
     (
         CASE
-            WHEN QUARTILE = 1 THEN 'CRITICAL'
-            WHEN QUARTILE = 2 THEN 'HIGH'
-            WHEN QUARTILE = 3 THEN 'MEDIUM'
-            WHEN QUARTILE = 4 THEN 'LOW'
+            WHEN CLASS = 1 THEN 'CRITICAL'
+            WHEN CLASS = 2 THEN 'HIGH'
+            WHEN CLASS = 3 THEN 'MEDIUM'
+            WHEN CLASS = 4 THEN 'LOW'
         END
     ) AS COLONY_NAME
-FROM RANK_DATA
+    
+FROM TARGET
 
 ORDER BY ID ASC;
+    
