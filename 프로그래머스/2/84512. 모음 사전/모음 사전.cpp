@@ -1,34 +1,31 @@
 #include<bits/stdc++.h>
-
 using namespace std;
 
-vector<string> alpha = {"A", "E", "I", "O", "U"};
+vector<string> vowels = {"A", "E", "I", "O", "U"};
 string cmp;
-int order;
-int answer = 0;
+int finish, order;
 
-void travel(int depth, string str) {
-    
-    
-    if(str == cmp) {
-        answer = order;
+void back_tracking(string cur) {
+    // 예외: 크기가 5를 넘어가는 경우
+    if(cur.size() > 5) return;
+
+    if(cur != "") order++;
+    if(cur == cmp) {
+        finish = order;
         return;
     }
     
-    if(depth == 5) return;
-    
-    for(int i = 0; i < 5; i++) {
-        order++;
-        travel(depth + 1, str + alpha[i]);
-        if(answer != 0) return;
+    // 탐색!
+    for(string s : vowels) {
+        back_tracking(cur + s);
     }
 }
 
 int solution(string word) {
-
+    int answer = 0;
     cmp = word;
     
-    travel(0, "");
+    back_tracking("");
     
-    return answer;
+    return answer = finish;
 }
