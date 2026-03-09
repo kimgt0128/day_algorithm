@@ -1,25 +1,33 @@
-#include<bits/stdc++.h>
+#include<iostream>
+#include<vector>
+
 using namespace std;
 
 int n;
+vector<vector<long long>> dp;
 
-int main(void){
-    
-    cin >> n;
-    
-    long long last_0 = 0;
-    long long last_1 = 1;
-    
-    for(int i = 2; i<n+1; i++) {
-        long long cur_0 = last_0 + last_1;
-        long long cur_1 = last_0;
-        
-        last_0 = cur_0;
-        last_1 = cur_1;
+long long travel(int cur, int num) {
+
+    // base condiction
+    if (cur == 1) {
+        if(num == 0) return 0;
+        if(num == 1) return 1;
     }
     
+    // memoization
+    long long& ret = dp[cur][num];
     
-    cout << last_0 + last_1;
+    if (ret != -1) return ret;
     
+    // 상태 전이
+    if (num == 0) return ret = travel(cur - 1, 0) + travel(cur - 1, 1);
+    else if (num == 1) return ret = travel(cur - 1, 0);
+}
+
+int main(void) {
+    cin >> n;
+    dp.resize(n + 1, vector<long long>(n + 1, -1));
     
+    long long answer = travel(n, 0) + travel(n, 1);
+    cout << answer;
 }
