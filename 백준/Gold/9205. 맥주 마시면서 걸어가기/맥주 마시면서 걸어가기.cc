@@ -2,42 +2,42 @@
 
 using namespace std;
 
-int t, n;
-
-bool bfs(int y, int x, int ty, int tx, const vector<pair<int, int>>& nodes) {
-    set<pair<int, int>> visited;
-    queue<pair<int, int>> que;
+bool solve(int n, const vector<pair<int, int>>& nodes) {
     
-    visited.insert({y, x});
-    que.push({y, x});
+    vector<bool> visited(n+2, false);
+    queue<int> que;
+    
+    visited[0] = true;
+    que.push(0);
+    
+    int target_y = nodes[n+1].first;
+    int target_x = nodes[n+1].second;
     
     while(!que.empty()) {
-        auto cur = que.front();
+        int cur = que.front();
         que.pop();
         
-        int cy = cur.first;
-        int cx = cur.second;
+        int cy = nodes[cur].first;
+        int cx = nodes[cur].second;
         
-        // 도착지이면 끝!
-        if(cy == ty && cx == tx) return true;
+        if(cy == target_y && cx == target_x) return true;
         
-        for(auto node : nodes) {
-            int ny = node.first;
-            int nx = node.second;
+        for(int i = 0; i < nodes.size(); i++) {
+            int ny = nodes[i].first;
+            int nx = nodes[i].second;
             
-            // 방문 안했고, 거리가 1000 이하이면 방문!
-            if(visited.find({ny, nx}) == visited.end() && abs(ny - cy) + abs(nx - cx) <= 1000) {
-                que.push({ny, nx});
-                visited.insert({ny, nx});
+            if(visited[i] == false && (abs(ny - cy) + abs(nx - cx) <= 1000) ) {
+                visited[i] = true;
+                que.push(i);
             }
         }
     }
-    
-    // 도착 안하고 bfs가 끝나면 fasle
     return false;
 }
 
 int main(void) {
+    int t, n;
+    
     cin >> t;
     
     while(t--) {
@@ -50,15 +50,8 @@ int main(void) {
             cin >> y >> x;
             nodes.push_back({y, x});
         }
-        // 시작, 끝 값 세팅 후 bfs 인자에 넣기!
-        int start_y, start_x, target_y, target_x;
-        start_y = nodes[0].first;
-        start_x = nodes[0].second;
-        target_y = nodes[n+1].first;
-        target_x = nodes[n+1].second;
-        
-        bool possible = bfs(start_y, start_x, target_y, target_x, nodes);
-        if(possible == true) cout << "happy\n";
+        bool answer = solve(n, nodes);
+        if(answer ==  true) cout << "happy\n";
         else cout << "sad\n";
     }
     
